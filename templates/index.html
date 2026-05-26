@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supermarket_Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Supermarket_Chatbot</h2>
+        <div class="chat-box">
+            {% for sender, message in chat_history %}
+                <div class="{{ 'user' if sender == 'You' else 'bot' }}">
+                    <strong>{{ sender }}:</strong> {{ message | replace('\n', '<br>') }}
+                </div>
+            {% endfor %}
+        </div>
+        <form method="POST">
+            <input type="text" name="user_input" placeholder="Ask me something..." required>
+            <button type="submit">Send</button>
+        </form>
+        <form method="GET" action="{{ url_for('reset') }}">
+            <button type="submit">Reset Chat</button>
+        </form>
+    </div>
+</body>
+</html>
